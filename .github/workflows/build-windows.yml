@@ -15,11 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
-          python-version:  .github/python-version.txt  # specify the Python version you need
-      - run: pip install -e .[dev]  # pyinstaller 5.9 does not like pyproject.toml + editable installs.
+          python-version-file: .github/python-version.txt
+
+      - run: pip install .[dev]  # pyinstaller 5.9 does not like pyproject.toml + editable installs.
       - run: python -u release/build.py installbuilder-installer msix-installer
 
       - uses: actions/upload-artifact@v4
