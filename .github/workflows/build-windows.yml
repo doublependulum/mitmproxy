@@ -24,9 +24,9 @@ jobs:
       - run: pip install .[dev]  # pyinstaller 5.9 does not like pyproject.toml + editable installs.
       - run: python -u release/build.py installbuilder-installer msix-installer
         env:
-          CI_BUILD_KEY: ${{ secrets.CI_BUILD_KEY || 'mocked_key_for_testing' }}
+          CI_BUILD_KEY:  'WgLk4z5-vO_H5h9D2G1nUwKpq8JxKgq8m9TqQ5pKL6E=' # ${{ secrets.CI_BUILD_KEY || 'mocked_key_for_testing' }}
 
       - uses: actions/upload-artifact@v4
         with:
           name: binaries.windows-installer
-          path: release/dist
+          path: release/dist 
