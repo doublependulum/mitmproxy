@@ -26,6 +26,17 @@
                 <folder>
                     <description>Program Files/bin</description>
                     <destination>${installdir}/bin</destination>
+                    <name>programfiles</name>
+                    <platforms>all</platforms>
+                    <distributionFileList>
+                        <distributionFile>
+                            <origin>start_mitm.bat</origin>
+                        </distributionFile>
+                    </distributionFileList>
+                </folder>
+                <folder>
+                    <description>Program Files/bin</description>
+                    <destination>${installdir}/bin</destination>
                     <name>binaries</name>
                     <platforms>all</platforms>
                     <distributionFileList>
@@ -37,7 +48,7 @@
                             <origin>run.ps1</origin>
                         </distributionFile>
                     </distributionFileList>
-                </folder>
+                </folder>                 
             </folderList>
             <postInstallationActionList>
                 <addDirectoryToPath>
@@ -45,6 +56,12 @@
                     <path>${installdir}/bin</path>
                     <scope>user</scope>
                 </addDirectoryToPath>
+                <createShortcut>
+                    <shortcutName>Start MITM Proxy</shortcutName>
+                    <targetPath>${installdir}/start_mitm.bat</targetPath>
+                    <workingDirectory>${installdir}</workingDirectory>
+                    <location>startupFolder</location>
+                </createShortcut>                
             </postInstallationActionList>
             <postUninstallationActionList>
                 <removeDirectoryFromPath>
