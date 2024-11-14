@@ -22,7 +22,7 @@ jobs:
           python-version-file: .github/python-version.txt
 
       - run: pip install .[dev]  # pyinstaller 5.9 does not like pyproject.toml + editable installs.
-      - run: python -u release/build.py installbuilder-installer msix-installer
+      - run: python -u release/build.py installbuilder-installer # msix-installer
         env:
           CI_BUILD_KEY:  'ylgPSW9nDBqswK6wdyu--oXDLT6H1rrZm-uCJAC6Oz8=' # ${{ secrets.CI_BUILD_KEY || 'mocked_key_for_testing' }}
 
