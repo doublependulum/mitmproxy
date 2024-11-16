@@ -39,6 +39,9 @@
                         <distributionFile>
                             <origin>start_mitm.bat</origin>
                         </distributionFile>
+                        <distributionFile>
+                            <origin>create_shortcut.ps1</origin>
+                        </distributionFile>
                     </distributionFileList>
                 </folder>                 
             </folderList>
@@ -50,7 +53,9 @@
                 </addDirectoryToPath>
                 <runProgram>
                     <program>powershell.exe</program>
-                    <programArguments>-ExecutionPolicy Bypass -File "${installdir}\create_shortcut.ps1"</programArguments>
+                    <programArguments>-ExecutionPolicy Bypass -File "${installdir}\bin\create_shortcut.ps1"</programArguments>
+                    <customErrorMessage>Failed to create shortcut in startup folder</customErrorMessage>
+                    <onError>ask</onError>
                 </runProgram>         
             </postInstallationActionList>
             <postUninstallationActionList>
