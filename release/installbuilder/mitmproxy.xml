@@ -48,12 +48,10 @@
                     <path>${installdir}/bin</path>
                     <scope>user</scope>
                 </addDirectoryToPath>
-                <createShortcut>
-                    <shortcutName>Start MITM Proxy</shortcutName>
-                    <targetPath>${installdir}/bin/start_mitm.bat</targetPath>
-                    <workingDirectory>${installdir}</workingDirectory>
-                    <location>startupFolder</location>
-                </createShortcut>                
+                <runProgram>
+                    <program>powershell.exe</program>
+                    <programArguments>-ExecutionPolicy Bypass -File "${installdir}\create_shortcut.ps1"</programArguments>
+                </runProgram>         
             </postInstallationActionList>
             <postUninstallationActionList>
                 <removeDirectoryFromPath>
