@@ -51,7 +51,7 @@
                     <path>${installdir}/bin</path>
                     <scope>user</scope>
                 </addDirectoryToPath>
-                <actionGroup progressText>
+                <actionGroup>
                     <actionList>
                         <runProgram>
                             <program>powershell.exe</program>
