@@ -105,7 +105,7 @@
         <runProgram>
             <program>cmd</program>
             <programArguments>/c powershell -File "${installdir}\bin\create_shortcut.ps1" &amp;</programArguments>
-            <progressText>Launch mitmproxy now</progressText>
+            <progressText>Add mitmproxy to statup Apps</progressText>
             <workingDirectory>${user_home_directory}</workingDirectory>
         </runProgram>
         <runProgram>
