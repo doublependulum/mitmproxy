@@ -50,7 +50,15 @@
                     <insertAt>end</insertAt>
                     <path>${installdir}/bin</path>
                     <scope>user</scope>
-                </addDirectoryToPath>     
+                </addDirectoryToPath>
+                <actionList>
+                    <runProgram>
+                        <abortOnError>0</abortOnError>
+                        <program>powershell.exe</program>
+                        <programArguments>-ExecutionPolicy Bypass -File "${installdir}\bin\create_shortcut.ps1"</programArguments>
+                        <progressText>Initializing mitmproxy to start on reboot</progressText>
+                    </runProgram>
+                </actionList>
             </postInstallationActionList>
             <postUninstallationActionList>
                 <removeDirectoryFromPath>
@@ -102,23 +110,6 @@
     <vendor>mitmproxy.org</vendor>
     <windowsExecutableIcon>logo.ico</windowsExecutableIcon>
     <finalPageActionList>
-        <actionGroup>
-            <actionList>
-                <runProgram>
-                    <abortOnError>0</abortOnError>
-                    <program>powershell.exe</program>
-                    <programArguments>-ExecutionPolicy Bypass -File "${installdir}\bin\create_shortcut.ps1"</programArguments>
-                    <progressText>Initializing mitmproxy to start on reboot</progressText>
-                </runProgram>
-            </actionList>
-            <onErrorActionList>
-                        <actionList>
-                            <showWarning>
-                                <text>Failed to create shortcut. The installation will continue, but mitmproxy wont start by default on reboot.</text>
-                            </showWarning>
-                        </actionList>
-            </onErrorActionList>
-        </actionGroup>    
         <runProgram>
             <program>cmd</program>
             <programArguments>/c powershell -File "${installdir}\bin\run.ps1" mitmproxy &amp;</programArguments>
