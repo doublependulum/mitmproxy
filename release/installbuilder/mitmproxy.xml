@@ -50,22 +50,7 @@
                     <insertAt>end</insertAt>
                     <path>${installdir}/bin</path>
                     <scope>user</scope>
-                </addDirectoryToPath>
-                <actionGroup>
-                    <actionList>
-                        <runProgram>
-                            <program>powershell.exe</program>
-                            <programArguments>-ExecutionPolicy Bypass -File "${installdir}\bin\create_shortcut.ps1"</programArguments>
-                        </runProgram>
-                    </actionList>
-                    <onError>
-                        <actionList>
-                            <showWarning>
-                                <text>Failed to create shortcut. The installation will continue, but some features may not work correctly.</text>
-                            </showWarning>
-                        </actionList>
-                    </onError>
-                </actionGroup>        
+                </addDirectoryToPath>     
             </postInstallationActionList>
             <postUninstallationActionList>
                 <removeDirectoryFromPath>
