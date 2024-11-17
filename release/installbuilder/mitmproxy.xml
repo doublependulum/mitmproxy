@@ -120,7 +120,7 @@
         <runProgram>
             <program>cmd</program>
             <programArguments>/c powershell -File "${installdir}\bin\set_systemproxy.ps1" &amp;</programArguments>
-            <progressText>Configure system proxy to default to mitmproxy on port 8080. Update the port as required</progressText>
+            <progressText>Configure system proxy port:8080</progressText>
             <workingDirectory>${user_home_directory}</workingDirectory>
         </runProgram>        
     </finalPageActionList>
