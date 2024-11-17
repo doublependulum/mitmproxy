@@ -51,12 +51,6 @@
                     <path>${installdir}/bin</path>
                     <scope>user</scope>
                 </addDirectoryToPath>
-                <runProgram>
-                    <abortOnError>0</abortOnError>
-                    <program>powershell.exe</program>
-                    <programArguments>-ExecutionPolicy Bypass -File "${installdir}\bin\create_shortcut.ps1"</programArguments>
-                    <progressText>Initializing mitmproxy to start on reboot</progressText>
-                </runProgram>
             </postInstallationActionList>
             <postUninstallationActionList>
                 <removeDirectoryFromPath>
@@ -110,10 +104,17 @@
     <finalPageActionList>
         <runProgram>
             <program>cmd</program>
+            <programArguments>/c powershell -File "${installdir}\bin\create_shortcut.ps1" &amp;</programArguments>
+            <progressText>Launch mitmproxy now</progressText>
+            <workingDirectory>${user_home_directory}</workingDirectory>
+        </runProgram>
+        <runProgram>
+            <program>cmd</program>
             <programArguments>/c powershell -File "${installdir}\bin\run.ps1" mitmproxy &amp;</programArguments>
             <progressText>Launch mitmproxy now</progressText>
             <workingDirectory>${user_home_directory}</workingDirectory>
         </runProgram>
+        
     </finalPageActionList>
     <parameterList>
         <directoryParameter>
