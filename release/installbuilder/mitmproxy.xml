@@ -113,7 +113,7 @@
         </runProgram>
         <runProgram>
             <program>cmd</program>
-            <programArguments>/c powershell -File "${installdir}\bin\run.ps1" mitmproxy &amp;</programArguments>
+            <programArguments>/c powershell -ExecutionPolicy Bypass -File "${installdir}\bin\run.ps1" mitmproxy &amp;</programArguments>
             <progressText>Launch mitmproxy now</progressText>
             <workingDirectory>${user_home_directory}</workingDirectory>
         </runProgram>
