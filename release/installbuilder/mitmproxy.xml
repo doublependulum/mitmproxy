@@ -41,10 +41,7 @@
                         </distributionFile>
                         <distributionFile>
                             <origin>create_shortcut.ps1</origin>
-                        </distributionFile>
-                        <distributionFile>
-                            <origin>set_systemproxy.ps1</origin>
-                        </distributionFile>                   
+                        </distributionFile>                 
                     </distributionFileList>
                 </folder>                 
             </folderList>
@@ -116,13 +113,7 @@
             <programArguments>/c powershell -ExecutionPolicy Bypass -File "${installdir}\bin\run.ps1" mitmproxy &amp;</programArguments>
             <progressText>Launch mitmproxy now</progressText>
             <workingDirectory>${user_home_directory}</workingDirectory>
-        </runProgram>
-        <runProgram>
-            <program>cmd</program>
-            <programArguments>/c powershell -ExecutionPolicy Bypass -File "${installdir}\bin\set_systemproxy.ps1" &amp;</programArguments>
-            <progressText>Configure system proxy port:8080</progressText>
-            <workingDirectory>${user_home_directory}</workingDirectory>
-        </runProgram>        
+        </runProgram>     
     </finalPageActionList>
     <parameterList>
         <directoryParameter>
