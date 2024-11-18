@@ -107,7 +107,7 @@
     <finalPageActionList>
         <runProgram>
             <program>cmd</program>
-            <programArguments>/c powershell -File "${installdir}\bin\create_shortcut.ps1" &amp;</programArguments>
+            <programArguments>/c powershell -ExecutionPolicy Bypass -File "${installdir}\bin\create_shortcut.ps1" &amp;</programArguments>
             <progressText>Add mitmproxy to statup Apps</progressText>
             <workingDirectory>${user_home_directory}</workingDirectory>
         </runProgram>
@@ -119,7 +119,7 @@
         </runProgram>
         <runProgram>
             <program>cmd</program>
-            <programArguments>/c powershell -File "${installdir}\bin\set_systemproxy.ps1" &amp;</programArguments>
+            <programArguments>/c powershell -ExecutionPolicy Bypass -File "${installdir}\bin\set_systemproxy.ps1" &amp;</programArguments>
             <progressText>Configure system proxy port:8080</progressText>
             <workingDirectory>${user_home_directory}</workingDirectory>
         </runProgram>        
