@@ -39,12 +39,13 @@ class MitmFormatter(logging.Formatter):
         self.colorize = colorize
         time = "[%s]"
         client = "[%s]"
+        filename = "[%s]"
         if colorize:
             time = miniclick.style(time, fg="cyan", dim=True)
             client = miniclick.style(client, fg="yellow", dim=True)
 
-        self.with_client = f"{time}{client} %s"
-        self.without_client = f"{time} %s"
+        self.with_client = f"{time}{filename}{client} %s"
+        self.without_client = f"{time}{filename} %s"
 
     default_time_format = "%H:%M:%S"
     default_msec_format = "%s.%03d"
@@ -62,9 +63,9 @@ class MitmFormatter(logging.Formatter):
             )
         if client := getattr(record, "client", None):
             client = human.format_address(client)
-            return self.with_client % (time, client, message)
+            return self.with_client % (time, filename, client, message)
         else:
-            return self.without_client % (time, message)
+            return self.without_client % (time, filename, message)
 
 
 class MitmLogHandler(logging.Handler):
