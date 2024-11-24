@@ -1201,7 +1201,6 @@ class Response(Message):
             c.append(refreshed)
         if c:
             self.headers.set_all("set-cookie", c)
-__repr__
 
 class HTTPFlow(flow.Flow):
     """
