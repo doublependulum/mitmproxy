@@ -138,7 +138,7 @@ class ConnectionHandler(metaclass=abc.ABCMeta):
             client=self.client.peername,
         )
 
-        self.log("client connect")
+        self.log("server.py: client connect")
         await self.handle_hook(server_hooks.ClientConnectedHook(self.client))
         if self.client.error:
             self.log("client kill connection")
@@ -252,7 +252,7 @@ class ConnectionHandler(metaclass=abc.ABCMeta):
                     addr = f"{human.format_address(command.connection.address)} ({human.format_address(command.connection.peername)})"
                 else:
                     addr = human.format_address(command.connection.address)
-                self.log(f"server connect {addr}")
+                self.log(f"server.py: server connect {addr}")
                 await self.handle_hook(server_hooks.ServerConnectedHook(hook_data))
                 await self.server_event(events.OpenConnectionCompleted(command, None))
 
