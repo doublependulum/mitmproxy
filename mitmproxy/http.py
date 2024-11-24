@@ -654,7 +654,7 @@ class Request(Message):
         HTTP request method, e.g. "GET".
         """
         print("method: {}".format(self.data.method.decode("utf-8", \
-                "surrogateescape").upper())
+                "surrogateescape").upper()))
         return self.data.method.decode("utf-8", "surrogateescape").upper()
 
     @method.setter
