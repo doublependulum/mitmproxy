@@ -324,6 +324,7 @@ class Message(serializable.Serializable):
 
     @raw_content.setter
     def raw_content(self, content: bytes | None) -> None:
+        print("content: {}".format(self.data.content))
         self.data.content = content
 
     @property
@@ -350,6 +351,7 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.raw_content`, `Message.content`
         """
+        print("text: {}".format(get_text()))
         return self.get_text()
 
     @text.setter
@@ -812,8 +814,10 @@ class Request(Message):
         """
         authority = self.host_header
         if authority:
+            print("pretty_url: {}".format(url.parse_authority(authority, check=False)[0]))
             return url.parse_authority(authority, check=False)[0]
         else:
+            print("pretty_url: {}".format(self.host))
             return self.host
 
     @property
@@ -831,6 +835,8 @@ class Request(Message):
         pretty_host, pretty_port = url.parse_authority(host_header, check=False)
         pretty_port = pretty_port or url.default_port(self.scheme) or 443
 
+        print("pretty_url: {}".format(url.unparse(self.scheme, \
+                pretty_host, pretty_port, self.path)))
         return url.unparse(self.scheme, pretty_host, pretty_port, self.path)
 
     def _get_query(self):
