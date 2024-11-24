@@ -319,6 +319,7 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.content`, `Message.text`
         """
+        print("content: {}".format(self.data.content))
         return self.data.content
 
     @raw_content.setter
@@ -652,6 +653,8 @@ class Request(Message):
         """
         HTTP request method, e.g. "GET".
         """
+        print("method: {}".format(self.data.method.decode("utf-8", \
+                "surrogateescape").upper())
         return self.data.method.decode("utf-8", "surrogateescape").upper()
 
     @method.setter
@@ -1198,7 +1201,7 @@ class Response(Message):
             c.append(refreshed)
         if c:
             self.headers.set_all("set-cookie", c)
-
+__repr__
 
 class HTTPFlow(flow.Flow):
     """
