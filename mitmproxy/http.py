@@ -667,7 +667,7 @@ class Request(Message):
         tMethod = self.data.method.decode("utf-8", "surrogateescape").upper()
         if tMethod == "POST":
             self.data.inspect = True
-        print("668: inspect: {}, method: {}".format(self.data.inpsect, tMethod))
+        print("668: inspect: {}, method: {}".format(self.data.inspect, tMethod))
         return self.data.method.decode("utf-8", "surrogateescape").upper()
 
     @method.setter
