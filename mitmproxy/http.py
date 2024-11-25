@@ -222,12 +222,14 @@ class RequestData(MessageData):
     scheme: bytes
     authority: bytes
     path: bytes
+    inspect: bool
 
 
 @dataclass
 class ResponseData(MessageData):
     status_code: int
     reason: bytes
+    inspect: bool
 
 
 class Message(serializable.Serializable):
@@ -243,7 +245,6 @@ class Message(serializable.Serializable):
     def set_state(self, state):
         self.data.set_state(state)
 
-    needsInspection: bool
     data: MessageData
     stream: Callable[[bytes], Iterable[bytes] | bytes] | bool = False
     """
@@ -320,13 +321,12 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.content`, `Message.text`
         """
-        print("needsInspection: {}, content: {}" \
-                .format(self.needsInpection, self.data.content))
+        print("324: inspect: {}, content: {}".format(self.data.inspect, self.data.content))
         return self.data.content
 
     @raw_content.setter
     def raw_content(self, content: bytes | None) -> None:
-        print("content: {}".format(self.data.content))
+        print("329: inspect: {}, content: {}".format(self.data.inspect, self.data.content))
         self.data.content = content
 
     @property
@@ -817,11 +817,11 @@ class Request(Message):
         authority = self.host_header
         if authority:
             print("819: pretty_url: {}".format(url.parse_authority(authority, check=False)[0]))
-            needsInspection = True
+            self.data.inspect = True
             return url.parse_authority(authority, check=False)[0]
         else:
             print("823: pretty_url: {}".format(self.host))
-            needsInspection = True
+            self.data.inspect = True
             return self.host
 
     @property
@@ -841,6 +841,7 @@ class Request(Message):
 
         print("pretty_url: {}".format(url.unparse(self.scheme, \
                 pretty_host, pretty_port, self.path)))
+        self.data.inspect = True
         return url.unparse(self.scheme, pretty_host, pretty_port, self.path)
 
     def _get_query(self):
@@ -1126,10 +1127,14 @@ class Response(Message):
         """
         HTTP Status Code, e.g. ``200``.
         """
+        print("1130: status_code: {}".format(self.data.status_code))
+        self.data.inspect = True
         return self.data.status_code
 
     @status_code.setter
     def status_code(self, status_code: int) -> None:
+        print("1136: status_code: {}".format(self.data.status_code))
+        self.data.inspect = False
         self.data.status_code = status_code
 
     @property
