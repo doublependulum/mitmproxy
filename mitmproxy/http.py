@@ -321,17 +321,26 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.content`, `Message.text`
         """
-        print(
-            "324: inspect: {}, content: {}".format(self.data.inspect, self.data.content)
-        )
+        if self.data.inspect:
+            print(
+                "324: inspect: {}, content: {}".format(
+                    self.data.inspect, self.data.content
+                )
+            )
+            print("data: {}".format(dir(self.data)))
+            print("headers: {}".format(dir(self.headers)))
         return self.data.content
 
     @raw_content.setter
     def raw_content(self, content: bytes | None) -> None:
-        print(
-            "329: inspect: {}, content: {}".format(self.data.inspect, self.data.content)
-        )
-        print("data: {}".format(dir(self.data)))
+        if self.data.inspect:
+            print(
+                "329: inspect: {}, content: {}".format(
+                    self.data.inspect, self.data.content
+                )
+            )
+            print("data: {}".format(dir(self.data)))
+            print("headers: {}".format(dir(self.headers)))
         self.data.content = content
 
     @property
@@ -358,8 +367,9 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.raw_content`, `Message.content`
         """
-        print("text: {}".format(self.get_text()))
-        print("headers: {}".format(dir(self.headers)))
+        if self.data.inspect:
+            print("370: text: {}".format(self.get_text()))
+        print("371: headers: {}".format(dir(self.headers)))
         return self.get_text()
 
     @text.setter
@@ -857,7 +867,13 @@ class Request(Message):
                 url.unparse(self.scheme, pretty_host, pretty_port, self.path)
             )
         )
-        self.data.inspect = True
+        print(
+            "860: host: {}, port: {}, path: {}, method: {}".format(
+                pretty_host, pretty_port, self.path, self.data.method
+            )
+        )
+        if pretty_host == "chatgpt.com" and self.path == "backend-api/conversation":
+            self.data.inspect = True
         return url.unparse(self.scheme, pretty_host, pretty_port, self.path)
 
     def _get_query(self):
