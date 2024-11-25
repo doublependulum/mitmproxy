@@ -674,8 +674,8 @@ class Request(Message):
         """
         HTTP request method, e.g. "GET".
         """
-        #tMethod = self.data.method.decode("utf-8", "surrogateescape").upper()
-        #print("668: inspect: {}, method: {}".format(self.data.inspect, tMethod))
+        # tMethod = self.data.method.decode("utf-8", "surrogateescape").upper()
+        # print("668: inspect: {}, method: {}".format(self.data.inspect, tMethod))
         return self.data.method.decode("utf-8", "surrogateescape").upper()
 
     @method.setter
@@ -859,15 +859,16 @@ class Request(Message):
         pretty_port = pretty_port or url.default_port(self.scheme) or 443
 
         print(
-            "860: host: {}, port: {}, path: {}, method: {}".format(
+            "862: host: {}, port: {}, path: {}, method: {}".format(
                 pretty_host, pretty_port, self.path, self.data.method
             )
         )
         if (
             pretty_host == "chatgpt.com"
-            and self.path == "backend-api/conversation"
-            and self.data.method == "POST"
+            and self.path == "/backend-api/conversation"
+            and self.data.method.decode() == "POST"
         ):
+            print("===> Enable content inspection")
             self.data.inspect = True
         return url.unparse(self.scheme, pretty_host, pretty_port, self.path)
 
@@ -1155,7 +1156,7 @@ class Response(Message):
         """
         HTTP Status Code, e.g. ``200``.
         """
-        #print("1130: status_code: {}".format(self.data.status_code))
+        # print("1130: status_code: {}".format(self.data.status_code))
         return self.data.status_code
 
     @status_code.setter
