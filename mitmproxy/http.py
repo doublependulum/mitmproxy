@@ -243,6 +243,7 @@ class Message(serializable.Serializable):
     def set_state(self, state):
         self.data.set_state(state)
 
+    needsInspection: bool
     data: MessageData
     stream: Callable[[bytes], Iterable[bytes] | bytes] | bool = False
     """
@@ -319,7 +320,8 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.content`, `Message.text`
         """
-        print("content: {}".format(self.data.content))
+        print("needsInspection: {}, content: {}" \
+                .format(self.needsInpection, self.data.content))
         return self.data.content
 
     @raw_content.setter
@@ -814,10 +816,12 @@ class Request(Message):
         """
         authority = self.host_header
         if authority:
-            print("pretty_url: {}".format(url.parse_authority(authority, check=False)[0]))
+            print("819: pretty_url: {}".format(url.parse_authority(authority, check=False)[0]))
+            needsInspection = True
             return url.parse_authority(authority, check=False)[0]
         else:
-            print("pretty_url: {}".format(self.host))
+            print("823: pretty_url: {}".format(self.host))
+            needsInspection = True
             return self.host
 
     @property
