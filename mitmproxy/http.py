@@ -674,10 +674,8 @@ class Request(Message):
         """
         HTTP request method, e.g. "GET".
         """
-        tMethod = self.data.method.decode("utf-8", "surrogateescape").upper()
-        if tMethod == "POST":
-            self.data.inspect = True
-        print("668: inspect: {}, method: {}".format(self.data.inspect, tMethod))
+        #tMethod = self.data.method.decode("utf-8", "surrogateescape").upper()
+        #print("668: inspect: {}, method: {}".format(self.data.inspect, tMethod))
         return self.data.method.decode("utf-8", "surrogateescape").upper()
 
     @method.setter
@@ -835,16 +833,14 @@ class Request(Message):
         """
         authority = self.host_header
         if authority:
-            print(
-                "819: pretty_url: {}".format(
-                    url.parse_authority(authority, check=False)[0]
-                )
-            )
-            self.data.inspect = True
+            # print(
+            #    "819: pretty_url: {}".format(
+            #        url.parse_authority(authority, check=False)[0]
+            #    )
+            # )
             return url.parse_authority(authority, check=False)[0]
         else:
-            print("823: pretty_url: {}".format(self.host))
-            self.data.inspect = True
+            # print("823: pretty_url: {}".format(self.host))
             return self.host
 
     @property
@@ -863,16 +859,15 @@ class Request(Message):
         pretty_port = pretty_port or url.default_port(self.scheme) or 443
 
         print(
-            "854: pretty_url: {}".format(
-                url.unparse(self.scheme, pretty_host, pretty_port, self.path)
-            )
-        )
-        print(
             "860: host: {}, port: {}, path: {}, method: {}".format(
                 pretty_host, pretty_port, self.path, self.data.method
             )
         )
-        if pretty_host == "chatgpt.com" and self.path == "backend-api/conversation":
+        if (
+            pretty_host == "chatgpt.com"
+            and self.path == "backend-api/conversation"
+            and self.data.method == "POST"
+        ):
             self.data.inspect = True
         return url.unparse(self.scheme, pretty_host, pretty_port, self.path)
 
@@ -1160,8 +1155,7 @@ class Response(Message):
         """
         HTTP Status Code, e.g. ``200``.
         """
-        print("1130: status_code: {}".format(self.data.status_code))
-        self.data.inspect = True
+        #print("1130: status_code: {}".format(self.data.status_code))
         return self.data.status_code
 
     @status_code.setter
