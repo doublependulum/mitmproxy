@@ -321,12 +321,16 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.content`, `Message.text`
         """
-        print("324: inspect: {}, content: {}".format(self.data.inspect, self.data.content))
+        print(
+            "324: inspect: {}, content: {}".format(self.data.inspect, self.data.content)
+        )
         return self.data.content
 
     @raw_content.setter
     def raw_content(self, content: bytes | None) -> None:
-        print("329: inspect: {}, content: {}".format(self.data.inspect, self.data.content))
+        print(
+            "329: inspect: {}, content: {}".format(self.data.inspect, self.data.content)
+        )
         self.data.content = content
 
     @property
@@ -353,7 +357,7 @@ class Message(serializable.Serializable):
 
         *See also:* `Message.raw_content`, `Message.content`
         """
-        print("text: {}".format(get_text()))
+        print("text: {}".format(self.get_text()))
         return self.get_text()
 
     @text.setter
@@ -567,6 +571,7 @@ class Request(Message):
             trailers=trailers,
             timestamp_start=timestamp_start,
             timestamp_end=timestamp_end,
+            inspect=False,
         )
 
     def __repr__(self) -> str:
@@ -657,8 +662,11 @@ class Request(Message):
         """
         HTTP request method, e.g. "GET".
         """
-        print("method: {}".format(self.data.method.decode("utf-8", \
-                "surrogateescape").upper()))
+        print(
+            "method: {}".format(
+                self.data.method.decode("utf-8", "surrogateescape").upper()
+            )
+        )
         return self.data.method.decode("utf-8", "surrogateescape").upper()
 
     @method.setter
@@ -816,7 +824,11 @@ class Request(Message):
         """
         authority = self.host_header
         if authority:
-            print("819: pretty_url: {}".format(url.parse_authority(authority, check=False)[0]))
+            print(
+                "819: pretty_url: {}".format(
+                    url.parse_authority(authority, check=False)[0]
+                )
+            )
             self.data.inspect = True
             return url.parse_authority(authority, check=False)[0]
         else:
@@ -839,8 +851,11 @@ class Request(Message):
         pretty_host, pretty_port = url.parse_authority(host_header, check=False)
         pretty_port = pretty_port or url.default_port(self.scheme) or 443
 
-        print("pretty_url: {}".format(url.unparse(self.scheme, \
-                pretty_host, pretty_port, self.path)))
+        print(
+            "854: pretty_url: {}".format(
+                url.unparse(self.scheme, pretty_host, pretty_port, self.path)
+            )
+        )
         self.data.inspect = True
         return url.unparse(self.scheme, pretty_host, pretty_port, self.path)
 
@@ -1057,6 +1072,7 @@ class Response(Message):
             trailers=trailers,
             timestamp_start=timestamp_start,
             timestamp_end=timestamp_end,
+            inspect=False,
         )
 
     def __repr__(self) -> str:
@@ -1216,6 +1232,7 @@ class Response(Message):
             c.append(refreshed)
         if c:
             self.headers.set_all("set-cookie", c)
+
 
 class HTTPFlow(flow.Flow):
     """
