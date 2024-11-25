@@ -331,6 +331,7 @@ class Message(serializable.Serializable):
         print(
             "329: inspect: {}, content: {}".format(self.data.inspect, self.data.content)
         )
+        print("data: {}".format(dir(self.data)))
         self.data.content = content
 
     @property
@@ -358,6 +359,7 @@ class Message(serializable.Serializable):
         *See also:* `Message.raw_content`, `Message.content`
         """
         print("text: {}".format(self.get_text()))
+        print("headers: {}".format(dir(self.headers)))
         return self.get_text()
 
     @text.setter
@@ -662,11 +664,10 @@ class Request(Message):
         """
         HTTP request method, e.g. "GET".
         """
-        print(
-            "method: {}".format(
-                self.data.method.decode("utf-8", "surrogateescape").upper()
-            )
-        )
+        tMethod = self.data.method.decode("utf-8", "surrogateescape").upper()
+        if tMethod == "POST":
+            self.data.inspect = True
+        print("668: inspect: {}, method: {}".format(self.data.inpsect, tMethod))
         return self.data.method.decode("utf-8", "surrogateescape").upper()
 
     @method.setter
